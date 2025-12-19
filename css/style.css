@@ -1,0 +1,530 @@
+/*--------------------------------------------------------------
+# 1. KONFIGURASI UTAMA (Variables & Fonts)
+--------------------------------------------------------------*/
+:root {
+    --main-text: #FFFFFF;
+    --sec-text: #FFBB00;
+    --border-shadow: #7F8199;
+    --bg-dark: #00022F;
+}
+
+@font-face {
+    font-family: 'Pixel Operator 8';
+    src: url('../fonts/PixelOperator8.ttf'); 
+}
+
+/*--------------------------------------------------------------
+# 2. GLOBAL RESET & BASE STYLES
+--------------------------------------------------------------*/
+body {
+    margin: 0;
+    padding-top: 0px;
+    background-color: var(--bg-dark);
+    color: var(--main-text);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px; 
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.pixel-font {
+    font-family: 'Pixel Operator 8', 'Courier New', monospace;
+    letter-spacing: 2px;
+}
+
+.secondary-text { 
+    color: var(--sec-text); 
+    font-size: 15px;
+}
+
+.section-title { 
+    margin-bottom: 30px; 
+    font-size: 1.2rem; 
+    display: block;
+}
+
+/*--------------------------------------------------------------
+# 3. KOMPONEN NAVBAR (UPDATED HAMBURGER)
+--------------------------------------------------------------*/
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(0, 0, 26, 0.95); /* Lebih gelap agar menu terbaca */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-shadow);
+    padding: 15px 0; /* Padding sedikit diperbesar */
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--sec-text);
+    z-index: 1001; /* Agar logo tetap bisa diklik saat menu buka */
+}
+
+/* Style Default Desktop (Menu Terlihat) */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--main-text);
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--sec-text);
+}
+
+.btn-pixel-nav {
+    text-decoration: none;
+    color: #000 !important; /* Force black text */
+    background: var(--sec-text);
+    padding: 8px 15px;
+    font-size: 0.7rem;
+    font-family: 'Pixel Operator 8', monospace;
+    box-shadow: 2px 2px 0 #000;
+    border: 1px solid #000;
+}
+
+/* Style Hamburger (Default Hidden di Desktop) */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: var(--main-text);
+    transition: all 0.3s ease-in-out;
+}
+
+/*--------------------------------------------------------------
+# 11. RESPONSIVE (MOBILE NAV)
+--------------------------------------------------------------*/
+@media (max-width: 768px) {
+    /* Munculkan Hamburger */
+    .hamburger {
+        display: block;
+    }
+
+    /* Sembunyikan Hamburger jika menu aktif (Animasi jadi X) */
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Menu Mobile (Slide Down / Dropdown) */
+    .nav-links {
+        position: fixed;
+        left: -100%; /* Sembunyi di kiri layar */
+        top: 70px; /* Muncul tepat di bawah navbar */
+        gap: 0;
+        flex-direction: column;
+        background-color: var(--bg-dark);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        border-bottom: 1px solid var(--border-shadow);
+        box-shadow: 0 10px 10px rgba(0,0,0,0.5);
+    }
+
+    /* Class active ditambahkan oleh JS untuk memunculkan menu */
+    .nav-links.active {
+        left: 0;
+    }
+
+    .nav-links li {
+        margin: 20px 0;
+    }
+
+    /* Button Discord di Mobile agak besar */
+    .btn-pixel-nav {
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    /* Hero adjustments */
+    .hero-title { font-size: 2.5rem; }
+    .hero-container, .hero { height: 300px; }
+    .hero-profile { display: none; }
+    .about-content { flex-direction: column; }
+}
+
+/*--------------------------------------------------------------
+# 4. HERO SECTION (HOME PAGE)
+--------------------------------------------------------------*/
+.hero {
+    position: relative;
+    width: 100%;
+    height: 70vh; 
+    background: url('../img/background.jpg') no-repeat center center;
+    background-size: cover; 
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+}
+
+/* Overlay khusus Home */
+.hero .hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to right, rgb(1, 2, 49) 10%, rgba(5, 5, 5, 0) 80%),
+                linear-gradient(to top, rgba(1, 2, 49) 5%, rgba(5, 5, 5, 0) 40%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hero-profile img {
+    width: 280px; 
+    aspect-ratio: 549 / 722; 
+    object-fit: cover; 
+    border-radius: 5%;
+    border: 3px solid var(--sec-text);
+    background-color: var(--sec-text);
+}
+
+/*--------------------------------------------------------------
+# 5. HERO SECTION (PROJECTS & GALLERY)
+--------------------------------------------------------------*/
+.hero-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    color: white;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; 
+    object-position: center;
+    z-index: 1;
+}
+
+/* Overlay khusus Sub-pages */
+.hero-container .hero-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(to right, var(--bg-dark) 15%, rgba(0, 2, 47, 0.4) 50%, transparent 100%),
+                linear-gradient(to top, var(--bg-dark) 5%, transparent 30%);
+    z-index: 2;
+}
+
+/* Wrapper agar konten hero sub-page bisa rata tengah container */
+.hero-content-wrapper {
+    width: 100%;
+    /* Mengikuti container global */
+}
+
+/* Konten teks di dalam hero sub-page */
+.hero-container .hero-content {
+    position: relative;
+    z-index: 3;
+    padding-left: 0; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    max-width: 600px; 
+}
+
+.hero-subtitle {
+    font-size: 0.9rem; 
+    margin-bottom: 25px; 
+    opacity: 0.9;
+    letter-spacing: 1px;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    margin: 0;
+    line-height: 1;
+    color: #FFFFFF;
+    text-shadow: 4px 4px 0px #000; 
+}
+
+.hero-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-top: 20px; 
+    color: var(--sec-text);
+}
+
+/*--------------------------------------------------------------
+# 6. CARD & GRID SYSTEM
+--------------------------------------------------------------*/
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 80px;
+}
+
+.card {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-shadow);
+    border-radius: 15px;
+    padding: 20px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 0 2px var(--border-shadow), 0 0 0 4px #000000; 
+    margin: 5px;
+}
+
+.card:hover { 
+    transform: translateY(-5px); 
+}
+
+.card img {
+    width: 100%; 
+    aspect-ratio: 3 / 2; /* Default: Landscape untuk Project */
+    object-fit: cover; 
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Badge Kategori Kecil di dalam Card */
+.category-container {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 8px; 
+    margin-bottom: 12px; 
+}
+
+.category-badge {
+    font-family: 'Pixel Operator 8', monospace;
+    font-size: 0.5rem;
+    color: var(--sec-text);
+    background: rgba(255, 187, 0, 0.1);
+    padding: 4px 8px;
+    border: 1px solid var(--sec-text);
+    border-radius: 4px;
+}
+
+.btn-card {
+    background: var(--sec-text);
+    color: #FFFFFF;
+    font-weight: bold;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+
+/*--------------------------------------------------------------
+# 7. FITUR KHUSUS: FILTER BUTTONS
+--------------------------------------------------------------*/
+.project-header {
+    margin-bottom: 40px;
+}
+
+.filter-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.filter-btn {
+    background: transparent;
+    color: var(--main-text);
+    border: 1px solid var(--border-shadow);
+    padding: 8px 18px;
+    border-radius: 20px; 
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.85rem;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: var(--sec-text);
+    color: #000;
+    border-color: var(--sec-text);
+    font-weight: bold;
+}
+
+/*--------------------------------------------------------------
+# 8. FITUR KHUSUS: GALLERY PAGE
+--------------------------------------------------------------*/
+/* Membuat gambar Gallery jadi kotak 1:1 */
+.gallery-card img {
+    aspect-ratio: 1 / 1; 
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Penyesuaian padding bawah gallery */
+.gallery-card {
+    padding-bottom: 15px;
+}
+
+/*--------------------------------------------------------------
+# 9. SECTION ABOUT ME (HOME)
+--------------------------------------------------------------*/
+.about-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.about-info { 
+    flex: 2; 
+}
+
+.social-links {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    min-width: 220px;
+}
+
+.btn-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; 
+    text-decoration: none;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    box-shadow: 0 0 0 2px #000, 0 0 0 4px var(--border-shadow);
+    transition: transform 0.2s;
+}
+
+.btn-social img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
+
+.btn-social:hover { transform: scale(1.02); }
+
+.ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
+.gh { background: #333; border: 1px solid var(--border-shadow); }
+.dc { background: #5865f2; }
+
+/*--------------------------------------------------------------
+# 10. FOOTER SECTION
+--------------------------------------------------------------*/
+.footer {
+    border-top: 1px solid var(--border-shadow);
+    padding: 40px 0;
+    margin-top: 50px;
+    background: rgba(5, 5, 5, 0.5);
+    color: #7F8199;
+    font-size: 0.9rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left h4 {
+    color: var(--sec-text);
+    margin-bottom: 5px;
+}
+/*--------------------------------------------------------------
+# 11. RESPONSIVE (MOBILE NAV)
+--------------------------------------------------------------*/
+@media (max-width: 768px) {
+    /* Munculkan Hamburger */
+    .hamburger {
+        display: block;
+    }
+
+    /* Sembunyikan Hamburger jika menu aktif (Animasi jadi X) */
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Menu Mobile (Slide Down / Dropdown) */
+    .nav-links {
+        position: fixed;
+        left: -100%; /* Sembunyi di kiri layar */
+        top: 70px; /* Muncul tepat di bawah navbar */
+        gap: 0;
+        flex-direction: column;
+        background-color: var(--bg-dark);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        border-bottom: 1px solid var(--border-shadow);
+        box-shadow: 0 10px 10px rgba(0,0,0,0.5);
+    }
+
+    /* Class active ditambahkan oleh JS untuk memunculkan menu */
+    .nav-links.active {
+        left: 0;
+    }
+
+    .nav-links li {
+        margin: 20px 0;
+    }
+
+    /* Button Discord di Mobile agak besar */
+    .btn-pixel-nav {
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    /* Hero adjustments */
+    .hero-title { font-size: 2.5rem; }
+    .hero-container, .hero { height: 300px; }
+    .hero-profile { display: none; }
+    .about-content { flex-direction: column; }
+}
