@@ -187,7 +187,7 @@ body {
     position: relative;
     width: 100%;
     height: 70vh; 
-    background: url('../img/background.jpg') no-repeat center center;
+    background: url('../img/background.gif') no-repeat center center;
     background-size: cover; 
     margin-bottom: 50px;
     display: flex;
@@ -527,4 +527,45 @@ body {
     .hero-container, .hero { height: 300px; }
     .hero-profile { display: none; }
     .about-content { flex-direction: column; }
+}
+
+/*--------------------------------------------------------------
+# 12. CLEAN UP & LAYOUT UPDATES (Index Fix)
+# Pengaturan jarak antar section (About -> Journey -> Gallery)
+--------------------------------------------------------------*/
+
+/* Memberi jarak bawah pada About Me agar tidak nempel dengan Journey */
+.about-section {
+    margin-bottom: 80px;
+}
+
+/* Memberi jarak bawah pada Journey agar tidak nempel dengan Gallery */
+.journey-section {
+    margin-bottom: 80px;
+}
+
+/* Style khusus Header Gallery di Home (menggantikan inline style flex) */
+.section-header-wrapper {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 30px;
+}
+
+/* Helper class untuk judul yang margin-nya 0 */
+.no-margin {
+    margin: 0;
+}
+
+/* Link View All di Gallery Home */
+.view-all-link {
+    text-decoration: none; 
+    font-size: 0.8rem; 
+    color: var(--sec-text); 
+    font-weight: bold;
+}
+
+/* Style Font Kecil di Footer (Build Ver) */
+.build-ver {
+    font-size: 0.7rem;
 }

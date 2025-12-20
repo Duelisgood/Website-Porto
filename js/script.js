@@ -175,3 +175,90 @@ if (hamburger && navMenu) {
         navMenu.classList.remove("active");
     }));
 }
+
+/*--------------------------------------------------------------
+# 7. HOME GALLERY LOGIC (Mini Gallery)
+# Menampilkan 3 foto pilihan di Halaman Depan
+--------------------------------------------------------------*/
+
+// 1. Definisi Class (Sama seperti di gallery.js tapi versi ringkas)
+class HomeGalleryItem {
+    constructor(image, title, caption, tags) {
+        this.image = image;
+        this.title = title;
+        this.caption = caption;
+        this.tags = tags;
+    }
+
+    createHTML() {
+        const tagBadges = this.tags
+            .filter(tag => tag !== "Featured") // Sembunyikan tag Featured
+            .map(tag => `<span class="category-badge">${tag.toUpperCase()}</span>`)
+            .join("");
+
+        // Kita pakai class 'gallery-card' agar bentuknya kotak (1:1)
+        return `
+            <div class="card gallery-card">
+                <img src="${this.image}" alt="${this.title}">
+                <div class="card-body">
+                    <div class="category-container">${tagBadges}</div>
+                    <h4 class="pixel-font" style="font-size: 0.85rem; color: var(--sec-text); margin-top: 8px;">
+                        ${this.title}
+                    </h4>
+                    <p style="font-size: 0.8rem; color: #ccc; margin-top: 5px; line-height: 1.4;">
+                        ${this.caption}
+                    </p>
+                </div>
+            </div>
+        `;
+    }
+}
+
+// 2. Manager Khusus Home Gallery
+const HomeGalleryManager = {
+    container: document.getElementById('home-gallery-container'),
+    items: [],
+
+    addItem(image, title, caption, tags) {
+        const newItem = new HomeGalleryItem(image, title, caption, tags);
+        this.items.push(newItem);
+    },
+
+    render() {
+        if (!this.container) return; // Stop jika tidak ada container (misal di halaman lain)
+
+        // Hanya ambil yang ada tag "Featured"
+        const featuredItems = this.items.filter(item => item.tags.includes("Featured"));
+
+        this.container.innerHTML = featuredItems
+            .map(item => item.createHTML())
+            .join('');
+    }
+};
+
+// 3. Data Gallery untuk Home (Pilih 3 foto terbaikmu dan beri tag "Featured")
+HomeGalleryManager.addItem(
+    "img/gallery/setup-coding.jpg", 
+    "JIMBARAN, 2025", 
+    "Debugging code ditemani suara ombak. Healing spot terbaik.", 
+    ["View", "Featured"] 
+);
+
+HomeGalleryManager.addItem(
+    "img/gallery/theater-show.jpg", 
+    "TEATER KAMPUS", 
+    "Role: Antagonis. Ternyata acting marah lebih susah dari coding.", 
+    ["Life", "Featured"]
+);
+
+HomeGalleryManager.addItem(
+    "img/gallery/cat-coding.jpg", 
+    "LATE NIGHT", 
+    "3 AM motivation. Teman begadang setia menyelesaikan bug.", 
+    ["Coding", "Featured"]
+);
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    HomeGalleryManager.render();
+});
