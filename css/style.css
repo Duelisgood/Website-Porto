@@ -569,3 +569,25 @@ body {
 .build-ver {
     font-size: 0.7rem;
 }
+
+/*--------------------------------------------------------------
+# 13. TYPEWRITER EFFECT
+# Animasi kursor kedip-kedip
+--------------------------------------------------------------*/
+.typing-cursor {
+    display: inline-block;
+    color: var(--sec-text);
+    animation: blink 0.7s infinite;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Agar tinggi baris tetap terjaga saat teks kosong */
+.hero-text h2 {
+    min-height: 1.5em; 
+}

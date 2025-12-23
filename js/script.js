@@ -144,7 +144,7 @@ JourneyManager.addProject(
     "Turning community reports into cleaner environments.", 
     "img/project/project-ecotrack.png", 
     "https://github.com/Duelisgood/ProgNET_EcoTrack", 
-    ["PHP", "Web Dev","Featured"]
+    ["PHP", "Web Dev"]
 );
 
 JourneyManager.addProject(
@@ -153,6 +153,14 @@ JourneyManager.addProject(
     "img/project/project-rpg.png", 
     "https://github.com/Duelisgood/-C-RPG_TBG.git", 
     ["C", "Featured"]
+);
+
+JourneyManager.addProject(
+    "Balinese Mask Detection", 
+    "Where machine learning meets Balinese cultural identity.",
+    "img/project/project-mask.png", 
+    "https://github.com/Duelisgood/ModelTopeng.git", 
+    ["Python", "Machine Learning", "Featured"]
 );
 
 /*--------------------------------------------------------------
@@ -261,4 +269,85 @@ HomeGalleryManager.addItem(
 
 document.addEventListener('DOMContentLoaded', () => {
     HomeGalleryManager.render();
+});
+
+/*--------------------------------------------------------------
+# 8. TYPEWRITER EFFECT (Sadboy/Romantic Mode)
+# Efek mengetik dan menghapus teks secara bergantian
+--------------------------------------------------------------*/
+
+class TypeWriter {
+    constructor(txtElement, words, wait = 3000) {
+        this.txtElement = txtElement;
+        this.words = words;
+        this.txt = '';
+        this.wordIndex = 0;
+        this.wait = parseInt(wait, 10);
+        this.type();
+        this.isDeleting = false;
+    }
+
+    type() {
+        // Index kata saat ini (looping jika sudah habis)
+        const current = this.wordIndex % this.words.length;
+        // Ambil teks lengkap dari kata saat ini
+        const fullTxt = this.words[current];
+
+        // Cek apakah sedang menghapus atau mengetik
+        if (this.isDeleting) {
+            // Hapus karakter
+            this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+            // Tambah karakter
+            this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        // Masukkan teks ke dalam elemen HTML
+        this.txtElement.innerHTML = this.txt;
+
+        // Kecepatan Mengetik (Default)
+        let typeSpeed = 100;
+
+        if (this.isDeleting) {
+            typeSpeed /= 2; // Lebih cepat saat menghapus
+        }
+
+        // Jika kata sudah selesai diketik
+        if (!this.isDeleting && this.txt === fullTxt) {
+            // Beri jeda waktu sebelum menghapus (supaya orang sempat baca)
+            typeSpeed = this.wait;
+            // Set status menjadi menghapus
+            this.isDeleting = true;
+        } 
+        // Jika kata sudah selesai dihapus
+        else if (this.isDeleting && this.txt === '') {
+            this.isDeleting = false;
+            // Pindah ke kata berikutnya
+            this.wordIndex++;
+            // Jeda sedikit sebelum mulai mengetik kata baru
+            typeSpeed = 500;
+        }
+
+        // Jalankan fungsi ini lagi setelah waktu tertentu (looping)
+        setTimeout(() => this.type(), typeSpeed);
+    }
+}
+
+// Inisialisasi saat halaman dimuat (DOM Load)
+document.addEventListener('DOMContentLoaded', () => {
+    const txtElement = document.getElementById('typing-text');
+    
+    // DAFTAR KATA-KATA (Sudah disingkat tapi makna sama)
+    const words = [         // Default Identity
+        "Currently in your heart",      // Status: Di hatimu
+        "If forever existed, I'd still hold you", // Singkatan dari happy-ever-afters...
+        "Can't move on while loving you",         // Singkatan dari How can I move on...
+        "Pain isn't leaving, but hoping you return", // Singkatan dari The worst thing...
+        "Don't know how to be just friends again"
+    ];
+
+    // Mulai efek mengetik (Wait time 2000ms = 2 detik diam setelah ngetik)
+    if (txtElement) {
+        new TypeWriter(txtElement, words, 2000);
+    }
 });
