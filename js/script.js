@@ -152,7 +152,7 @@ JourneyManager.addProject(
     "Terminal Quest: Where imagination renders the graphics.",
     "img/project/project-rpg.png", 
     "https://github.com/Duelisgood/-C-RPG_TBG.git", 
-    ["C", "Featured"]
+    ["C", "Game Dev","Featured"]
 );
 
 JourneyManager.addProject(
@@ -160,7 +160,15 @@ JourneyManager.addProject(
     "Where machine learning meets Balinese cultural identity.",
     "img/project/project-mask.png", 
     "https://github.com/Duelisgood/ModelTopeng.git", 
-    ["Python", "Machine Learning", "Featured"]
+    ["Python", "Machine Learning"]
+);
+
+JourneyManager.addProject(
+    "Ai Trivia Blast", 
+    "An AI-powered real-time trivia game with neon visuals and game-show energy.",
+    "img/project/project-trivia.png", 
+    "https://github.com/Duelisgood/ai-trivia-blast.git", 
+    ["PHP", "Web Dev", "Game Dev", "Featured"]
 );
 
 /*--------------------------------------------------------------
@@ -265,6 +273,8 @@ HomeGalleryManager.addItem(
     "3 AM motivation. Teman begadang setia menyelesaikan bug.", 
     ["Coding", "Featured"]
 );
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {

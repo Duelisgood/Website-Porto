@@ -86,6 +86,13 @@ GalleryManager.addItem(
     ["Life", "Coding"]
 );
 
+GalleryManager.addItem(
+    "img/gallery/sunset.png", 
+    "PANTAI SENJA", 
+    "Langit jingga, suara ombak, dan jeda singkat dari dunia yang berisik.", 
+    ["Life", "View", ]
+);
+
 /*--------------------------------------------------------------
 # 4. EVENT LISTENER & FILTER LOGIC
 # Menangani interaksi tombol filter di halaman Gallery

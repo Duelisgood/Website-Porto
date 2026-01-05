@@ -6,6 +6,7 @@
     --sec-text: #FFBB00;
     --border-shadow: #7F8199;
     --bg-dark: #00022F;
+    --blue-glow: rgba(0, 170, 255, 0.35);
 }
 
 @font-face {
@@ -307,13 +308,21 @@ body {
     border: 1px solid var(--border-shadow);
     border-radius: 15px;
     padding: 20px;
-    transition: transform 0.3s ease;
-    box-shadow: 0 0 0 2px var(--border-shadow), 0 0 0 4px #000000; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+     box-shadow:
+        0 0 0 2px var(--border-shadow),
+        0 0 0 4px #000000,
+        0 0 10px rgba(0, 170, 255, 0.25);
     margin: 5px;
 }
 
-.card:hover { 
-    transform: translateY(-5px); 
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 0 0 2px var(--border-shadow),
+        0 0 0 4px #000000,
+        0 0 12px var(--blue-glow),
+        0 0 24px rgba(0, 170, 255, 0.15);
 }
 
 .card img {
